@@ -19,7 +19,7 @@ namespace kaleidoscope {
 					// and we've decided to make a new raindrop in this column
 					map[col][row] = 0xff;
                     // Randomly select a new color channel for this col
-                    colorMap[col][0] = rand()%3;
+                    colorMap[col][0] = rand()%6;
 				} else if (map[col][row] > 0 && map[col][row] < 0xff) {
 					// Pixel is neither full brightness nor totally dark;
 					// decay it
@@ -73,9 +73,12 @@ namespace kaleidoscope {
 
 	cRGB LEDDigitalRainEffect::getColorFromComponents(int channel, uint8_t primary, uint8_t secondary) {
 		switch (channel) {
-			case 0: return CRGB(primary, secondary, secondary);
-			case 1: return CRGB(secondary, primary, secondary);
-			case 2: return CRGB(secondary, secondary, primary);
+			case 0: return CRGB(primary, secondary, secondary); // red
+			case 1: return CRGB(secondary, primary, secondary); // blue
+			case 2: return CRGB(secondary, secondary, primary); // green
+			case 3: return CRGB(primary, primary, secondary); // yellow
+			case 4: return CRGB(primary, secondary, primary); // magenta
+			case 5: return CRGB(secondary, primary, primary); // cyan
 			default: return CRGB(0, 0, 0);
 		}
 	}
