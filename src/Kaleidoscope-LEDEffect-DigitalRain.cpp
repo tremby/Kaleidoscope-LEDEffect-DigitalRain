@@ -6,12 +6,11 @@ namespace kaleidoscope {
 	uint8_t LEDDigitalRainEffect::NEW_DROP_PROBABILITY = 18;
 	uint8_t LEDDigitalRainEffect::PURE_GREEN_INTENSITY = 0xd0;
 	uint8_t LEDDigitalRainEffect::MAXIMUM_BRIGHTNESS_BOOST = 0xc0;
-	uint8_t LEDDigitalRainEffect::COLOR_CHANNEL = 1;
 
 	void LEDDigitalRainEffect::update(void) {
 		uint8_t col;
 		uint8_t row;
-		
+
 		// Decay intensities and possibly make new raindrops
 		for (col = 0; col < COLS; col++) {
 			for (row = 0; row < ROWS; row++) {
@@ -19,6 +18,8 @@ namespace kaleidoscope {
 					// This is the top row, pixels have just fallen,
 					// and we've decided to make a new raindrop in this column
 					map[col][row] = 0xff;
+                    // Randomly select a new color channel for this col
+                    colorMap[col][0] = rand()%3;
 				} else if (map[col][row] > 0 && map[col][row] < 0xff) {
 					// Pixel is neither full brightness nor totally dark;
 					// decay it
@@ -26,7 +27,7 @@ namespace kaleidoscope {
 				}
 
 				// Set the colour for this pixel
-				::LEDControl.setCrgbAt(row, col, getColorFromIntensity(map[col][row]));
+				::LEDControl.setCrgbAt(row, col, getColorFromIntensity(colorMap[col][0], map[col][row]));
 			}
 		}
 
@@ -56,7 +57,7 @@ namespace kaleidoscope {
 		}
 	}
 
-	cRGB LEDDigitalRainEffect::getColorFromIntensity(uint8_t intensity) {
+	cRGB LEDDigitalRainEffect::getColorFromIntensity(int channel, uint8_t intensity) {
 		uint8_t boost;
 
 		// At high intensities start at light green
@@ -65,13 +66,13 @@ namespace kaleidoscope {
 			boost = (uint8_t) ((uint16_t) MAXIMUM_BRIGHTNESS_BOOST
 					* (intensity - PURE_GREEN_INTENSITY)
 					/ (0xff - PURE_GREEN_INTENSITY));
-			return getColorFromComponents(0xff, boost);
+			return getColorFromComponents(channel, 0xff, boost);
 		}
-		return getColorFromComponents((uint8_t) ((uint16_t) 0xff * intensity / PURE_GREEN_INTENSITY), 0);
+		return getColorFromComponents(channel, (uint8_t) ((uint16_t) 0xff * intensity / PURE_GREEN_INTENSITY), 0);
 	}
 
-	cRGB LEDDigitalRainEffect::getColorFromComponents(uint8_t primary, uint8_t secondary) {
-		switch (COLOR_CHANNEL) {
+	cRGB LEDDigitalRainEffect::getColorFromComponents(int channel, uint8_t primary, uint8_t secondary) {
+		switch (channel) {
 			case 0: return CRGB(primary, secondary, secondary);
 			case 1: return CRGB(secondary, primary, secondary);
 			case 2: return CRGB(secondary, secondary, primary);
