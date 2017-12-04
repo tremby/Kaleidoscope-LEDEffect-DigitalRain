@@ -72,14 +72,21 @@ namespace kaleidoscope {
 			uint8_t map[COLS][ROWS] = {{0}};
 
 			/**
+			 * Map of colors for each pixel.
+			 *
+			 * Just the channel to begin with.
+			 */
+			uint8_t colorMap[COLS][ROWS] = {{0}};
+
+			/**
 			 * Get colour from intensity.
 			 */
-			cRGB getColorFromIntensity(uint8_t intensity);
+			cRGB getColorFromIntensity(int channel, uint8_t intensity);
 
 			/**
 			 * Get colour from primary and secondary components.
 			 */
-			cRGB getColorFromComponents(uint8_t primary, uint8_t secondary);
+			cRGB getColorFromComponents(int channel, uint8_t primary, uint8_t secondary);
 	};
 }
 
