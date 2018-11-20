@@ -42,8 +42,10 @@ and for the defaults, see the [implementation file](src/Kaleidoscope-LEDEffect-D
   this allows the time ratio of tints vs shades of green to be controlled
 - `LEDDigitalRainEffect.MAXIMUM_BRIGHTNESS_BOOST`:
   the maximum lightness of a pixel, above pure green
-- `LEDDigitalRain.COLOR_CHANNEL`:
+- `LEDDigitalRainEffect.COLOR_CHANNEL`:
   colour channel to use, allowing green to be overridden with red or blue
+- `LEDDigitalRainEffect.ENABLE_CHRISTMAS_LIGHTS`:
+  set this to `true` to enable Christmas lighting colors
 
 ## Dependencies
 
