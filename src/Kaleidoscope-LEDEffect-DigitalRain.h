@@ -52,6 +52,11 @@ namespace kaleidoscope {
 			 */
 			static uint8_t COLOR_CHANNEL;
 
+			/**
+			 * Enable Christmas lights.
+			 */
+			static bool ENABLE_CHRISTMAS_LIGHTS;
+
 		protected:
 			void update(void) final;
 
