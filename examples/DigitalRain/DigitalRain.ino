@@ -4,7 +4,6 @@
 #include "Kaleidoscope-LEDControl.h"
 #include "Kaleidoscope-LEDEffect-DigitalRain.h"
 
-#include "LED-Off.h"
 
 // *INDENT-OFF*
 
@@ -29,10 +28,24 @@ KEYMAPS(
 
 // *INDENT-ON*
 
+KALEIDOSCOPE_INIT_PLUGINS(
+
+  // LEDControl provides support for other LED modes
+  LEDControl,
+
+  // We start with the LED effect that turns off all the LEDs.
+  LEDOff,
+
+  // Support for DigitalRain
+   LEDDigitalRainEffect
+
+  );
+
+  
 void setup() {
   Kaleidoscope.setup();
 
-  Kaleidoscope.use(&LEDControl, &LEDDigitalRainEffect, &LEDOff);
+  LEDDigitalRainEffect.DROP_TICKS = 22; // Make the rain fall faster
   LEDDigitalRainEffect.activate();
 }
 
