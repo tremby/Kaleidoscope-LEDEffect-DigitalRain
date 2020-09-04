@@ -5,6 +5,14 @@ with green lights flowing downwards on the keyboard.
 
 ![Video of the plugin in action](https://i.imgur.com/LUVFDgT.gif)
 
+## Installation
+
+The plugin is installed in the same way as other third-party Kaleidoscope
+plugins.
+[See this third-party plugin installation guide][guide].
+
+[guide]: https://community.keyboard.io/t/seeking-feedback-on-guide-to-adding-a-4rd-party-plugin/3129/1
+
 ## Using the extension
 
 To use the plugin, include the header, and tell the firmware to use it:
