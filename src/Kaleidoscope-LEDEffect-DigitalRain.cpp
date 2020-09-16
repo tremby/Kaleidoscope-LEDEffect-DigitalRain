@@ -47,9 +47,6 @@ namespace kaleidoscope { namespace plugin {
 			// Reset the timestamp
 			dropStartTimestamp = Runtime.millisAtCycleStart();
 
-			// Remember for next tick that we just dropped
-			justDropped = true;
-
 			for (row = ROWS - 1; row > 0; row--) {
 				for (col = 0; col < COLS; col++) {
 					// If this pixel is on the bottom row and bright,
